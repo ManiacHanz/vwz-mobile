@@ -32,7 +32,13 @@ export default {
   methods: {
   	_switchPanel (type, index) {
   		this.mobileActive = index
-  		this.$router.push(type)
+  		if(type) {
+
+  			this.$router.push(type)
+  		}
+  		else {
+  			this.$router.push('/other')
+  		}
   	}
   }
 

@@ -13,6 +13,7 @@ export const homeList = () => fetch('/home',{},'POST')
 
 export const listList = () => fetch('/list')
 
+export const userList = () => fetch('/user')
 /**
  * 账号密码登录
  */

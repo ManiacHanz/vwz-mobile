@@ -25,11 +25,13 @@ export default {
 <style lang="less" scoped>
 @import '../../style/common.less';
 .box {
-	padding: 0 6px;
+	padding: 0 3vw;
+	border-bottom: 1px solid #dedede;
 }
 .title {
-	height: 32px;
-	line-height: 32px;
+	font-size: 0.24rem;
+	height: 0.5rem;
+	line-height: 0.5rem;
 	.ellipsis()
 }
 .imglist {
@@ -37,14 +39,14 @@ export default {
 	justify-content: space-between;
 	img {
 		display: block;
-		width: 94px;
-		height: 70px;
+		width: 28vw;
+		height: 20vw;
 	}
 }
 .time {
-	font-size: 12px;
+	font-size: 0.2rem;
 	color: #999999;
-	line-height: 24px;
+	line-height: 0.4rem;
 }
 .dark {
 	background: @dark_back;

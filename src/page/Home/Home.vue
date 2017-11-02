@@ -106,7 +106,7 @@ export default {
   height: 18vh;
   border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
-  padding: 8px 10px;
+  padding: 2vw 4vw;
   cursor: pointer;
   position: relative;
   .title {
@@ -131,12 +131,13 @@ export default {
 }
 .plate {
   height: 44vh;
-  padding: 3%;
+  padding: 4vw;
   position: relative;
-  .flexsp();
+  display: flex;
   .left {
-    width: 30%;
+    width: 28vw;
     height: 100%;
+    margin-right: 4vw;
   }
   .plate-name {
     font-size: 0.22rem;
@@ -169,32 +170,30 @@ export default {
     background: #f55;
   }
   .temp_1 {
-    .wh(1.9rem, 1.9rem);
+    .wh(28vw, 28vw);
     background: #03a9f4;
   }
   .temp_2 {
-    .wh(1.9rem, 1.9rem);
+    .wh(28vw, 28vw);
     background: #8ecf43;
   }
   .temp_3 {
-    .wh(100%, 2.4rem);
+    .wh(100%, 100%);
+    width: 100%;
     background: #f1c43c;
     overflow: hidden;
   }
-
   .right {
     width: 66%;
     height: 100%;
-    .flexsp();
-    flex-direction: column;
     .up {
       width: 100%;
-      height: 1.9rem;
+      height: 28vw;
+      margin-bottom: 4vw;
       .flexsp();
     }
     .down {
-      height: 2.4rem;
-      // flex-grow: 1;
+      height: calc(~'100% - 32vw');
     }
   }
   /*

@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from 'page/Home/Home'
 import List from 'page/List/List'
 import User from 'page/User/User'
+import Other from 'page/Other/Other'
+import Detail from 'page/Detail/Detail'
 
 
 Vue.use(Router)
@@ -11,7 +13,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/detail'
     },
     {
     	path: '/home',
@@ -24,6 +26,14 @@ export default new Router({
     {
       path: '/user',
       component: User
+    },
+    {
+      path: '/other',
+      component: Other
+    },
+    {
+      path: '/detail',
+      component: Detail
     },
   ]
 })

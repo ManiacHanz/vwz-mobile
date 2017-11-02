@@ -27,26 +27,31 @@ export default {
 @import '../../style/common.less';
 
 .box {
-	padding: 8px 6px;
+	padding: 3vw 3vw;
 	display: flex;
+	border-bottom: 1px solid #dedede;
 }
 img {
 	display: block;
-	width: 80px;
-	height: 56px;
-	margin-right: 8px;
+	width: 25vw;
+	height: 17vw;
+	margin-right: 3vw;
 }
 .right {
 	flex-grow: 1;
 	height: 56px;
 	.title {
-		height: 38px;
+		font-size: 0.24rem;
+		height: 0.7rem;
 		overflow-y: hidden;
 		margin-bottom: 2px;
 	}
 	.time {
-		font-size: 12px;
+		font-size: 0.2rem;
 		color: #999999;
+		height: calc(~'17vw - 0.7rem');
+		display: table-cell;
+		vertical-align: bottom;
 	}
 }
 .dark {
