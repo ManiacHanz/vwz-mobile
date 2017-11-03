@@ -5,6 +5,7 @@ import List from 'page/List/List'
 import User from 'page/User/User'
 import Other from 'page/Other/Other'
 import Detail from 'page/Detail/Detail'
+import NotFound from 'page/NotFound/NotFound'
 
 
 Vue.use(Router)
@@ -13,7 +14,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/detail'
+      redirect: '/home'
     },
     {
     	path: '/home',
@@ -35,5 +36,9 @@ export default new Router({
       path: '/detail',
       component: Detail
     },
+    {
+      path: '/notFound',
+      component: NotFound
+    }
   ]
 })

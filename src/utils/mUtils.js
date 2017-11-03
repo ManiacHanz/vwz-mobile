@@ -274,3 +274,19 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
         })
     }, 20);
 }
+
+
+//判断手机横竖屏状态：
+export const alertOrientation = function () {
+    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {
+        /*
+        if (window.orientation === 180 || window.orientation === 0) { 
+            alert('竖屏状态！');
+        } 
+        */
+        if (window.orientation === 90 || window.orientation === -90 ){ 
+            // alert('横屏状态！');
+            alert('请在竖屏环境下使用，效果更好')
+        }  
+    }, false); 
+}

@@ -4,7 +4,7 @@
         <li
           v-for="(item, index) in menuBtnList"
           :class="[mobileActive===index?'active':'', ]"  
-          @click="_switchPanel(item.type, index)">
+          @click="_switchPanel(item.type, index, item.default)">
             <div class="icon">
               <img :src="item.icon"></img>
             </div>
@@ -30,14 +30,26 @@ export default {
   	this.menuBtn = this.menuBtnList
   },
   methods: {
-  	_switchPanel (type, index) {
+  	_switchPanel (type, index, _default) {
   		this.mobileActive = index
-  		if(type) {
-
-  			this.$router.push(type)
+  		if(!type) {
+  			this.$router.push(_default)
   		}
   		else {
-  			this.$router.push('/other')
+  			if(type=='home' || type == 'list' || type == 'user' ) {
+  				this.$router.push(type)
+  			}
+  			else {
+  				//匹配是网页还是 home 这些
+	  			let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+	  			let result = reg.test(type)
+	  			if(result){
+	  				this.$router.push('/other?'+result)
+	  			}
+	  			else {
+	  				this.$router.push('/notFound')
+	  			}
+  			}
   		}
   	}
   }

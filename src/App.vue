@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {alertOrientation} from 'src/utils/mUtils.js'
+
 import {homeList} from 'src/service/getData.js'
 
 import foot from 'components/foot/foot.vue'
@@ -28,6 +30,7 @@ export default {
     foot
   },
   mounted () {
+    alertOrientation()
     homeList().then( res => {
       // console.log(res.home)
       this.homePageList = res.home.data

@@ -8,7 +8,9 @@
  */
 
 // let baseUrl = 'http://localhost:4000'; 
-let baseUrl = 'http://10.0.0.3:4000'; 
+// let baseUrl = 'http://10.0.0.3:4000'; 
+let baseUrl = 'http://192.168.100.24:4000'; 
+
 
 let routerMode = 'history';
 let imgBaseUrl = 'http://images.cangdu.org/';
