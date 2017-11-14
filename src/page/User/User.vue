@@ -87,4 +87,18 @@ export default {
 	  vertical-align: middle;
 	}
 }
+.dark {
+	background-color: @dark_back;
+	.ctr-list {
+		li {
+			background: url('/static/img/arrow_dark.png') no-repeat;
+			background-position: 95% center;
+			background-size: 0.18rem;
+		}
+		li span{
+			color: @dark_lightFont;
+		}
+	}
+	
+}
 </style>

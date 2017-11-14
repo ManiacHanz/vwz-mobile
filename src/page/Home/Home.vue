@@ -1,6 +1,6 @@
 <template>
-	<div>
-    <section class="loading" v-if="isShowLoading">
+	<div class="green">
+    <section class="loading" v-if="isShowLoading" >
       <loading></loading>
     </section>
 		<section class="banner" v-if="homeData!=''">
@@ -196,84 +196,53 @@ export default {
       height: calc(~'100% - 32vw');
     }
   }
-  /*
-  &>div {
-    border-radius: 4px;
-    position: absolute;
-    box-sizing: border-box;
-  }
-  .plate-name {
-    color: #ffffff;
-    font-size: 0.24rem;
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-  }
-  img {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-  }
-  .describe {
-    color: #ffffff;
-    padding: 6px;
-  }
-  .temp_0 {
-    width: 30%;
-    height: 94%;
-    background: #ff5654;
-    top: 8px;
-    left: 9px;
-    img {
-      top: 82px;
-      left: 33px;
+}
+.dark {
+  background: @dark_back;
+  .introduce {
+    border-color: @dark_border;
+    .title {
+      color: @dark_lightFont;
+    }
+    .content {
+      color: @dark_font;
+    }
+    .category {
+      color: @dark_lightFont;
     }
   }
-  .temp_1 {
-    width: 30%;
-    height: 39%;
-    background: #03aaf4;
-    top: 8px;
-    left: 114px;
-    img {
-      top: 31px;
-      left: 31px;
+  .plate {
+    .temp_0 {
+      background-color: @dark_plate0;
+    }
+    .temp_1 {
+      background-color: @dark_plate1;
+    }
+    .temp_2 {
+      background-color: @dark_plate2;
+    }
+    .temp_3 {
+      background-color: @dark_plate3;
+      .plate-describe {
+        color: @dark_font;
+      }
     }
   }
-  .temp_2 {
-    width: 30%;
-    height: 39%;
-    background: #8ed043;
-    top: 8px;
-    left: 215px;
-    img {
-      top: 31px;
-      left: 31px;
+}
+.green {
+  .plate {
+    .temp_0 {
+      background-color: @green_plate0;
+    }
+    .temp_1 {
+      background-color: @green_plate1;
+    }
+    .temp_2 {
+      background-color: @green_plate2;
+    }
+    .temp_3 {
+      background-color: @green_plate3;
     }
   }
-  .temp_3 {
-    width: 193px;
-    height: 94px;
-    background: #f1c53b;
-    top: 108px;
-    left: 114px;
-    p {
-      position:absolute;
-      z-index:5;
-    }
-    img {
-      top: 32px;
-      left: 81px;
-    }
-    .background {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-  }
-  */
 }
 </style>

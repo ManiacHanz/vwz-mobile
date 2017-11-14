@@ -26,7 +26,6 @@ export default {
 @import '../../style/common.less';
 .box {
 	padding: 0 3vw;
-	border-bottom: 1px solid #dedede;
 }
 .title {
 	font-size: 0.24rem;

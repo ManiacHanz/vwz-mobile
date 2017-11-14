@@ -29,7 +29,6 @@ export default {
 .box {
 	padding: 3vw 3vw;
 	display: flex;
-	border-bottom: 1px solid #dedede;
 }
 img {
 	display: block;

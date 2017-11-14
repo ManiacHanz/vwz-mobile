@@ -9,7 +9,7 @@
 		<section class="content" v-if="listData!=''">
 			<ul >
 				<li v-for="(item, index) in listData.content" :key="index">
-					<type-a v-if="item.type==='a'" :content="item"></type-a>
+					<type-a v-if="item.imglist.length===3" :content="item"></type-a>
 					<type-b v-else :content="item"></type-b>
 				</li>
 			</ul>
@@ -60,6 +60,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import "../../style/common.less";
 .box {
 	overflow-y: scroll;
 }
@@ -69,5 +70,18 @@ export default {
 }
 .banner {
 	height: 28vh;
+}
+.content {
+  li {
+    border-bottom: 1px solid #dedede;
+  }
+}
+.dark {
+  background-color: @dark_back;
+  .content {
+    li {
+      border-color: @dark_border;
+    }
+  }
 }
 </style>

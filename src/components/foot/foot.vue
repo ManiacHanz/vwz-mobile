@@ -3,7 +3,8 @@
 		<ul :class="theme">
         <li
           v-for="(item, index) in menuBtnList"
-          :class="[mobileActive===index?'active':'', ]"  
+        	v-if=" item.title && (item.link || item.type)"
+          :class="[mobileActive===index?'active':'', item.icon==''? 'no-icon': '']"  
           @click="_switchPanel(item.type, index, item.default)">
             <div class="icon">
               <img :src="item.icon"></img>
@@ -102,7 +103,47 @@ export default {
 			text-align: center;
 		}
 	}
-	
-	
+	.blue {
+		.no-icon:first-of-type {
+			background: url('/static/img/menuicon_01.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+		.no-icon:last-of-type {
+			background: url('/static/img/menuicon_04.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+		.no-icon:nth-last-child(2) {
+			background: url('/static/img/menuicon_05.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+	}
+	.dark {
+		.no-icon:first-of-type {
+			background: url('/static/img/menuicon_01_dark.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+		.no-icon:last-of-type {
+			background: url('/static/img/menuicon_04_dark.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+		.no-icon:nth-last-child(2) {
+			background: url('/static/img/menuicon_05_dark.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+	}
+	.green {
+		.no-icon:first-of-type {
+			background: url('/static/img/menuicon_01_green.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+		.no-icon:last-of-type {
+			background: url('/static/img/menuicon_04_green.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+		.no-icon:nth-last-child(2) {
+			background: url('/static/img/menuicon_05_green.png')  center 10% no-repeat;
+			background-size: 30%;
+		}
+	}
 }
 </style>

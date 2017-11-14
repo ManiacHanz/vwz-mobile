@@ -11,9 +11,9 @@ export const cityGuess = () => fetch('/v1/cities', {
 
 export const homeList = () => fetch('/home',{},'POST')
 
-export const listList = () => fetch('/list')
+export const listList = () => fetch('/list',{},'POST')
 
-export const userList = () => fetch('/user')
+export const userList = () => fetch('/user',{},'POST')
 /**
  * 账号密码登录
  */
