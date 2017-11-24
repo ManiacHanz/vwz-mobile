@@ -1,6 +1,6 @@
 <template>
 	<div class="box">
-		<img :src="content.imglist[0]">
+		<img :src="imgBaseUrl+content.imglist[0]">
 		<div class="right">
 			<p class="title">{{ content.title }}</p>
 			<p class="time">{{ content.time }}</p>
@@ -9,12 +9,15 @@
 </template>
 
 <script>
+import {imageBaseUrl} from 'src/utils/env'
+
 export default {
 
   name: 'typeB',
 
   data () {
     return {
+      imgBaseUrl: imageBaseUrl,
 
     }
   },

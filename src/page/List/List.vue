@@ -1,5 +1,5 @@
 <template>
-	<div class="box">
+	<div class="box" :class="theme" v-if="!listLink">
 		<section class="loading" v-if="isShowLoading">
       <loading></loading>
     </section>
@@ -15,10 +15,18 @@
 			</ul>
 		</section>
 	</div>
+  <div v-else>
+    <iframe :src="listLink" frameborder="0" id="iframe">
+      
+    </iframe>
+  </div>
 </template>
 
 <script>
-import {listList} from 'src/service/getData.js'
+import axios from 'axios'
+import {mapState, mapMutations} from 'vuex'
+import {baseUrl,imageBaseUrl} from 'src/utils/env'
+import {jsonParse, getStore} from 'src/utils/mUtils.js'
 
 import loading from 'src/components/common/loading.vue'
 import swiperBanner from 'src/components/common/swiperBanner.vue'
@@ -32,6 +40,7 @@ export default {
 
   data () {
     return {
+      imgBaseUrl: imageBaseUrl,
     	isShowLoading: true,
     	listData:'',
     }
@@ -42,18 +51,24 @@ export default {
     typeA,
     typeB,
   },
-  beforeMount () {
-    setTimeout(()=>{
-
-    	this.init()
-    },500)
+  computed: {
+    ...mapState([
+        'uid','theme','listLink'
+      ])
   },
-  
+  mounted (){
+    this.init()
+  },
   methods: {
-  	async init(){
-     let res = await listList() 
-     this.listData = Object.assign({},res.list.data)
-     this.isShowLoading = false;
+  	init(){
+      let that = this
+      // alert(that.uid)
+      axios.get(baseUrl+'/front/news?uid='+ that.uid)
+        .then(res=> {
+          console.log(res)
+          that.listData = Object.assign({},jsonParse(res.data.data))
+          that.isShowLoading = false;
+        })
   	}
   }
 }
@@ -83,5 +98,9 @@ export default {
       border-color: @dark_border;
     }
   }
+}
+#iframe {
+  width: 100%;
+  height: 90vh;
 }
 </style>

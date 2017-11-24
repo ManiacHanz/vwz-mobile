@@ -1,13 +1,13 @@
 <template>
-	<div class="foot">
+	<div class="foot" :class="[theme, 'length'+dataLength]">
 		<ul :class="theme">
         <li
-          v-for="(item, index) in menuBtnList"
+          v-for="(item, index) in dataList"
         	v-if=" item.title && (item.link || item.type)"
           :class="[mobileActive===index?'active':'', item.icon==''? 'no-icon': '']"  
-          @click="_switchPanel(item.type, index, item.default)">
+          @click="_switchPanel(item.type, index, item.link)">
             <div class="icon">
-              <img :src="item.icon"></img>
+              <img :src="imgBaseUrl+item.icon"></img>
             </div>
             <p>{{ item.title }}</p>
           </li>
@@ -17,6 +17,12 @@
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex'
+import {imageBaseUrl,baseUrl} from 'src/utils/env'
+import { getParams, jsonParse, setStore, getStore} from 'src/utils/mUtils.js'
+import axios from 'axios'
+
+
 export default {
 
   name: 'foot',
@@ -24,33 +30,69 @@ export default {
   data () {
     return {
     	mobileActive:0,
+    	imgBaseUrl: imageBaseUrl,
+    	dataList: '',
+    	dataLength: 8,
     }
   },
-  props: ['menuBtnList','theme'],
+  // props: ['menuBtnList','theme'],
+  computed: {
+  	...mapState([
+  			'uid','theme'
+  		])
+  },
+  created () {
+  	// this.uid = getStore('uid')
+  },
   mounted () {
-  	this.menuBtn = this.menuBtnList
+  	let that = this
+  	// console.log('uid:', this.uid)
+  	// this.menuBtn = this.menuBtnList
+  	axios.get(baseUrl+'/front/menu?uid='+ that.uid)
+        .then(res=> {
+          let jpRes = jsonParse(res.data.data)
+          this.dataList = jpRes.button
+          if(this.dataList.length == 4) {
+          	this.dataLength = 3
+          }
+          else{
+          	this.dataLength = 5
+          	for (let i in this.dataList) {
+          		if(this.dataList[i].type == '' && this.dataList[i].title == '' && this.dataList[i].link == ''){
+          			this.dataLength = 4
+          			break
+          		}
+          	}
+          }
+          // window.location.href='http://192.168.100.24:12345/#/home'
+        })
   },
   methods: {
-  	_switchPanel (type, index, _default) {
+  	_switchPanel (type, index, link) {
+  		// console.log(type,index,link)    //link  是配的网址 type是原来的板块
   		this.mobileActive = index
-  		if(!type) {
-  			this.$router.push(_default)
+  		if(!type) {						// 这里是自定义的两个板块  直接连到网页
+  			this.$router.push({path: '/other', params: {'url': link}})
   		}
-  		else {
-  			if(type=='home' || type == 'list' || type == 'user' ) {
-  				this.$router.push(type)
-  			}
-  			else {
-  				//匹配是网页还是 home 这些
-	  			let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
-	  			let result = reg.test(type)
-	  			if(result){
-	  				this.$router.push('/other?'+result)
-	  			}
-	  			else {
-	  				this.$router.push('/notFound')
-	  			}
-  			}
+  		else {									// 这里是默认的三个模块 只能连接到网页  或者 连接到默认
+				// if(!link){				// 默认板块 并且没有配置自定义网页
+				// 	this.$router.push('/'+type)
+				// }
+				// else {
+				// 	//配置了自定义网页
+				// 	let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+				// 	let result = reg.test(link)			// 证明配的是第三方网页
+				// 	if (result) {
+				// 		// alert(2)
+				// 		this.$router.push({path: '/other', query: {'url': link}})
+				// 	}
+				// 	else {
+				// 		alert('没有配置正确的网站地址，无法读取菜单内容，请重新配置此按钮')
+				// 		return false
+				// 	}
+				// }
+  			this.$router.push('/'+type)
+  			
   		}
   	}
   }
@@ -66,6 +108,9 @@ export default {
 	bottom: 0;
 	width: 100%;
 	height: 10vh;
+	.dark {
+		border-top-color: @dark_font;
+	}
 	ul {
 		.flexsp();
 		width: 100%;
@@ -95,7 +140,7 @@ export default {
 			text-align: center;
 			img {
 				height: 90%;
-				margin-top: 2px;
+				// margin-top: 2px;
 			}
 		}
 		p {
@@ -104,46 +149,65 @@ export default {
 		}
 	}
 	.blue {
-		.no-icon:first-of-type {
+		background-color: #fff;
+		.no-icon:first-of-type .icon{
 			background: url('/static/img/menuicon_01.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
-		.no-icon:last-of-type {
+		.no-icon:last-of-type .icon {
 			background: url('/static/img/menuicon_04.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
-		.no-icon:nth-last-child(2) {
+		.no-icon:nth-last-child(2) .icon {
 			background: url('/static/img/menuicon_05.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
 	}
 	.dark {
-		.no-icon:first-of-type {
+		background-color: @dark_back;
+		.no-icon:first-of-type .icon {
 			background: url('/static/img/menuicon_01_dark.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
-		.no-icon:last-of-type {
+		.no-icon:last-of-type .icon {
 			background: url('/static/img/menuicon_04_dark.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
-		.no-icon:nth-last-child(2) {
+		.no-icon:nth-last-child(2) .icon {
 			background: url('/static/img/menuicon_05_dark.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
 	}
 	.green {
-		.no-icon:first-of-type {
+		background-color: #fff;
+		.no-icon:first-of-type  .icon{
 			background: url('/static/img/menuicon_01_green.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
-		.no-icon:last-of-type {
+		.no-icon:last-of-type  .icon{
 			background: url('/static/img/menuicon_04_green.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
-		.no-icon:nth-last-child(2) {
+		.no-icon:nth-last-child(2) .icon {
 			background: url('/static/img/menuicon_05_green.png')  center 10% no-repeat;
 			background-size: 30%;
 		}
+	}
+}
+.length4 {
+	li {
+		width: calc(~'100vw / 4');
+	}
+	.no-icon .icon {
+		background-size: 38% !important;
+	}
+}
+.length5{
+	li {
+		width: calc(~'100vw / 5');
+	}
+	.no-icon .icon {
+		background-size: 46% !important;
 	}
 }
 </style>

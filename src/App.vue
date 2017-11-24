@@ -13,7 +13,12 @@
 </template>
 
 <script>
-import {alertOrientation} from 'src/utils/mUtils.js'
+
+import axios from 'axios'
+import {mapState, mapMutations} from 'vuex'
+
+import {baseUrl} from 'src/utils/env'
+import {alertOrientation, getParams, jsonParse, setStore, getStore} from 'src/utils/mUtils.js'
 
 import {homeList} from 'src/service/getData.js'
 
@@ -29,13 +34,42 @@ export default {
   components: {
     foot
   },
-  mounted () {
-    alertOrientation()
-    homeList().then( res => {
-      // console.log(res.home)
-      this.homePageList = res.home.data
-    })
+  computed: {
+    ...mapState([
+        'uid'
+      ])
   },
+  created () {
+
+  },
+  mounted () {
+    const that = this
+    this.$nextTick( () => {
+      this.init()
+      // alert(that.uid)
+      axios.get(baseUrl+'/front/menu?uid='+ that.uid)
+        .then(res=> {
+          console.log(res)
+          this.homePageList = jsonParse(res.data.data)
+          this.SAVE_THEME(res.data.data.themes)
+          // window.location.href='http://192.168.100.24:12345/#/home'
+        })
+    })
+    
+  },
+  methods: {
+    ...mapMutations([
+        'SAVE_USERID','SAVE_THEME','SET_PANELLINK'
+      ]),
+    init(){
+      // alert('init')
+      alertOrientation()
+      const that = this
+      document.title = getStore('name')
+      // this.SAVE_USERID(getStore('uid'))
+      // this.SAVE_THEME(getStore('theme'))
+    }
+  }
 }
 </script>
 

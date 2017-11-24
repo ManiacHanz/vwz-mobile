@@ -1,3 +1,67 @@
+import qs from 'querystring'
+
+// 获取url 参数
+export const getParams = () => {
+    const promise = new Promise( (resolve, reject) => {
+        let name,value, newObj
+        let str=location.href //取得整个地址栏
+        let num=str.lastIndexOf("?") 
+        str=str.substr(num+1)
+        return resolve(qs.parse(str))
+    })
+    return promise
+    // 
+    // if( num < 0 ) {
+    //     alert('获取参数失败，请尝试重新获取二维码或联系管理员')
+    //     return false
+    // }
+
+    // ; //取得所有参数   stringvar.substr(start [, length ]
+    // let arr=str.split("&"); //各个参数放到数组里
+    // console.log(arr)
+
+    // for(let i=0;i < arr.length;i++){ 
+    //     num=arr[i].indexOf("="); 
+    //     if(num>0){ 
+    //         name=arr[i].substring(0,num);
+    //         value=arr[i].substr(num+1);
+    //         newObj[name]=value;
+    //     } 
+    // }
+}
+
+/*
+    处理掉返回数据的引号
+ */
+export const jsonParse = (data) => {
+    //console.log(data.startsWith('{')|| data.startsWith('['))  //es6新方法
+    // console.log(eval('(' + data + ')'))      // 字符串转对象
+    if(!data || typeof data != 'object') {
+        console.log('jsonParse error...')
+        return false
+    }
+    let newData = {}
+    for(let i in data) {
+        // console.log(data[i])
+        if( typeof data[i] == 'string' && (data[i].startsWith('{') || data[i].startsWith('['))) {
+            //是个对象或者数组的字符串 就要去掉引号
+            Object.defineProperty(newData, i, {
+                value: eval('(' + data[i] + ')') ,
+                enumerable: true,
+            })
+            // Object.assign({}, newData, {i: eval('(' + data[i] + ')')})
+        }
+        else {
+            Object.defineProperty(newData, i, {
+                value: data[i],
+                enumerable: true,
+            })
+            // Object.assign({}, newData, {i: data[i]})
+        }
+    }
+    return newData
+}
+
 /**
  * 存储localStorage
  */
@@ -6,7 +70,7 @@ export const setStore = (name, content) => {
 	if (typeof content !== 'string') {
 		content = JSON.stringify(content);
 	}
-	window.localStorage.setItem(name, content);
+	window.sessionStorage.setItem(name, content);
 }
 
 /**
@@ -14,7 +78,7 @@ export const setStore = (name, content) => {
  */
 export const getStore = name => {
 	if (!name) return;
-	return window.localStorage.getItem(name);
+	return window.sessionStorage.getItem(name);
 }
 
 /**
@@ -22,7 +86,7 @@ export const getStore = name => {
  */
 export const removeStore = name => {
 	if (!name) return;
-	window.localStorage.removeItem(name);
+	window.sessionStorage.removeItem(name);
 }
 
 /**

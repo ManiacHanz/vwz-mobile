@@ -1,22 +1,32 @@
 <template>
-	<div class="box">
+	<div class="box" :class="theme" v-if="!userLink">
 		<section class="loading" v-if="isShowLoading">
       <loading></loading>
     </section>
-		<section class="top" v-if="userData!=''">
-			<img :src="userData.banner">
+		<section class="top">
+			<img src="/static/img/ad_01.jpg">
 		</section>
 		<ul class="ctr-list" v-if="userData!=''">
 			<li v-for="(item, index) in userData.content" :key="index">
-				<img :src="item.icon">
+				<img :src="imgBaseUrl+item.icon">
 				<span>{{item.title}}</span>
 			</li>
 		</ul>
 	</div>
+  <div v-else>
+    <iframe :src="userLink" frameborder="0" id="iframe">
+      
+    </iframe>
+  </div>
 </template>
 
 <script>
-import {userList} from 'src/service/getData.js'
+import axios from 'axios'
+
+import {mapState, mapMutations} from 'vuex'
+
+import {baseUrl,imageBaseUrl} from 'src/utils/env'
+import {jsonParse, getStore} from 'src/utils/mUtils.js'
 
 import loading from 'src/components/common/loading.vue'
 export default {
@@ -27,24 +37,31 @@ export default {
     return {
 			isShowLoading: true,
     	userData:'',
+    	imgBaseUrl: imageBaseUrl,
     }
   },
   components: {
     loading,
   },
-  beforeMount () {
-    setTimeout(()=>{
-
-    	this.init()
-    },500)
+  computed: {
+    ...mapState([
+        'uid','theme','userLink'
+      ])
   },
-  
+  mounted () {
+  	this.init()
+  },
   methods: {
-  	async init(){
-     let res = await userList() 
-     this.userData = Object.assign({},res.user.data)
-     this.isShowLoading = false;
-  	}
+  	init(){
+  		let that = this
+      // alert(that.uid)
+      axios.get(baseUrl+'/front/service?uid='+ that.uid)
+        .then(res=> {
+          console.log(res)
+          that.userData = Object.assign({},jsonParse(res.data.data))
+          that.isShowLoading = false;
+        })
+  	},
   }
 }
 </script>
@@ -99,6 +116,9 @@ export default {
 			color: @dark_lightFont;
 		}
 	}
-	
+}
+#iframe {
+  width: 100%;
+  height: 100%;
 }
 </style>

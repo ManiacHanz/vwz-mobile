@@ -1,5 +1,6 @@
 import fetch from '../utils/fetch'
 import {getStore} from '../utils/mUtils'
+import {axiosInstance} from './axios'
 
 /**
  * 获取首页默认地址
@@ -9,11 +10,13 @@ export const cityGuess = () => fetch('/v1/cities', {
 	type: 'guess'
 });
 
-export const homeList = () => fetch('/home',{},'POST')
+// export const homeList = (data) => fetch('/front/menu',data,'POST')
+// export const homeList = axiosInstance.get('/front/menu')
+// export const homeList = axiosInstance('/front/menu')
 
-export const listList = () => fetch('/list',{},'POST')
+// export const listList = () => fetch('/list',{},'POST')
 
-export const userList = () => fetch('/user',{},'POST')
+// export const userList = () => fetch('/user',{},'POST')
 /**
  * 账号密码登录
  */

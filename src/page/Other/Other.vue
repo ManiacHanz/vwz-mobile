@@ -1,6 +1,6 @@
 <template>
 	<div class="box">
-		<iframe src="http://www.baidu.com" frameborder="0">
+		<iframe :src="url" frameborder="0" id="iframe">
 			
 		</iframe>
 	</div>
@@ -13,9 +13,21 @@ export default {
 
   data () {
     return {
-
+    	url:''
     }
-  }
+  },
+  mounted(){
+  	this.url = this.$route.query.url
+  },
+  watch: {
+  	url: function(newVal) {
+  		document.querySelector('#iframe')
+  		alert(newVal)
+  	}
+  },
+  beforeRouteUpdate () {
+  	this.url = this.$route.params.url
+  },
 }
 </script>
 

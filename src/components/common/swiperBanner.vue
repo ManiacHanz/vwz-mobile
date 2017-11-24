@@ -1,9 +1,9 @@
 <template>
 	<div class="banner">
-		<section class="swiper-container" :id="id">
+		<section class="swiper-container" :id="id" v-if="bannerList">
       <ul class="swiper-wrapper">
-          <li class="swiper-slide" v-for="(item, index) in bannerList" :key="index" >
-        		<img :src="item.img">
+          <li class="swiper-slide" v-for="(item, index) in bannerList" :key="index" @click="_gotoDetail(item.link)">
+        		<img :src="imgBaseUrl+item.img">
         		<p>
         			<span>{{ item.title }}</span>
         		</p>
@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import {imageBaseUrl} from 'src/utils/env'
+
+
 import 'static/plugin/swiper/swiper.min.js'
 import 'static/plugin/swiper/swiper.min.css'
 
@@ -24,7 +27,7 @@ export default {
 
   data () {
     return {
-
+    	imgBaseUrl: imageBaseUrl,
     }
   },
   props: ['bannerList','id'],
@@ -33,11 +36,24 @@ export default {
   		new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         loop: true,
-        // autoplay: 4000,
+        autoplay: 3000,
         observer:true,//修改swiper自己或子元素时，自动初始化swiper
  				observeParents:true,//修改swiper的父元素时，自动初始化swiper
 	    })
   	})
+  },
+  methods: {
+  	_gotoDetail (link){
+  		let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+      let result = reg.test(link)
+      if(!result) {
+        //非网站
+        this.$router.push('/detail/'+link)
+      }
+      else {
+        this.$router.push('/other/'+link)
+      }
+  	}
   }
 }
 </script>
