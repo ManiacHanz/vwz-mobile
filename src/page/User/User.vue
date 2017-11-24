@@ -7,7 +7,7 @@
 			<img src="/static/img/ad_01.jpg">
 		</section>
 		<ul class="ctr-list" v-if="userData!=''">
-			<li v-for="(item, index) in userData.content" :key="index">
+			<li v-for="(item, index) in userData.content" :key="index" @click="_gotoDetail(item.link)">
 				<img :src="imgBaseUrl+item.icon">
 				<span>{{item.title}}</span>
 			</li>
@@ -54,6 +54,11 @@ export default {
   methods: {
   	init(){
   		let that = this
+		  if(!that.uid){
+		  	// this.$route.hash = ''
+		  	// console.log(this.$route.hash)
+        this.$router.push('/')
+      }
       // alert(that.uid)
       axios.get(baseUrl+'/front/service?uid='+ that.uid)
         .then(res=> {
@@ -62,6 +67,17 @@ export default {
           that.isShowLoading = false;
         })
   	},
+  	_gotoDetail (link) {
+      let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+      let result = reg.test(link)
+      if(!result) {
+        //非网站
+        this.$router.push('/detail/'+link)
+      }
+      else {
+        this.$router.push('/other/'+link)
+      }
+    },
   }
 }
 </script>

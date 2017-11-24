@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
 
   name: 'Other',
@@ -16,17 +17,26 @@ export default {
     	url:''
     }
   },
+  computed: {
+    ...mapState([
+        'uid'
+      ])
+  },
   mounted(){
-  	this.url = this.$route.query.url
+  	if(!this.uid){
+      this.$router.push('/')
+    }
   },
   watch: {
-  	url: function(newVal) {
-  		document.querySelector('#iframe')
-  		alert(newVal)
+  	'$route': function(to, from) {
+  		// console.log(to.params.id)
+      this.url = 'http://' + to.params.id
   	}
   },
-  beforeRouteUpdate () {
-  	this.url = this.$route.params.url
+  beforeRouteEnter (to,from, next) {
+    next(vm=>{
+  	 vm.url = 'http://'+vm.$route.params.id
+    })
   },
 }
 </script>

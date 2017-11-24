@@ -7,7 +7,7 @@
           :class="[mobileActive===index?'active':'', item.icon==''? 'no-icon': '']"  
           @click="_switchPanel(item.type, index, item.link)">
             <div class="icon">
-              <img :src="imgBaseUrl+item.icon"></img>
+              <img :src="item.icon ? imgBaseUrl+item.icon : defaultIcon[index]"></img>
             </div>
             <p>{{ item.title }}</p>
           </li>
@@ -32,7 +32,8 @@ export default {
     	mobileActive:0,
     	imgBaseUrl: imageBaseUrl,
     	dataList: '',
-    	dataLength: 8,
+    	dataLength: '',
+    	defaultIcon: [],  // 给面板菜单按钮默认图标
     }
   },
   // props: ['menuBtnList','theme'],
@@ -42,9 +43,43 @@ export default {
   		])
   },
   created () {
-  	// this.uid = getStore('uid')
+
+  },
+  watch: {
+  	/*
+			defaultIcon有几种变量来控制
+			1、theme的不同，造成这个数组里面的内容不同，一共有3中数组
+			2、button长度的不同，造成defaulticon数组长度的不同，这样才可以根据index渠道相应的图片
+  	 */
+  	theme: function(newVal) {
+  		//通过监听默认主题给菜单配置默认的图标 因为初始化数据中可能没传这里
+  		if(newVal==='blue'){
+  			this.defaultIcon = ['/static/img/menuicon_01.png','','','/static/img/menuicon_04.png','/static/img/menuicon_05.png']
+  			if(this.dataLength == 3 ) {
+	  			this.defaultIcon.splice(1,1)
+	  		}
+  		}
+  		else if(newVal==='dark'){
+				this.defaultIcon = ['/static/img/menuicon_01_dark.png','','','/static/img/menuicon_04_dark.png','/static/img/menuicon_05_dark.png']
+				if(this.dataLength == 3 ) {
+	  			this.defaultIcon.splice(1,1)
+	  		}
+  		}
+  		else if(newVal==='green'){
+				this.defaultIcon = ['/static/img/menuicon_01_green.png','','','/static/img/menuicon_04_green.png','/static/img/menuicon_05_green.png']
+				if(this.dataLength == 3 ) {
+	  			this.defaultIcon.splice(1,1)
+	  		}
+  		}
+  	},
+  	
   },
   mounted () {
+  	// alert('foot mount')
+  	if(!this.uid) {			// 为了在二级页面刷新的时候其实这里也会重新加载  所以这里要单独取得uid 。因为 other是覆盖在foot的上面。。不是没加载foot。。。
+  		let id = getStore('uid')
+  		this.SAVE_USERID(id)
+  	}
   	let that = this
   	// console.log('uid:', this.uid)
   	// this.menuBtn = this.menuBtnList
@@ -68,13 +103,21 @@ export default {
         })
   },
   methods: {
+  	...mapMutations([
+  			'SAVE_USERID'
+  		]),
   	_switchPanel (type, index, link) {
   		// console.log(type,index,link)    //link  是配的网址 type是原来的板块
   		this.mobileActive = index
   		if(!type) {						// 这里是自定义的两个板块  直接连到网页
-  			this.$router.push({path: '/other', params: {'url': link}})
+  			// this.$router.push({path: '/other', params: {'url': link}})
+  			let newlink = link.replace('http://', '')
+
+        this.$router.push('/other/'+newlink)
   		}
   		else {									// 这里是默认的三个模块 只能连接到网页  或者 连接到默认
+  			this.$router.push('/'+type)
+  			/* 下面的应该不需要了 */
 				// if(!link){				// 默认板块 并且没有配置自定义网页
 				// 	this.$router.push('/'+type)
 				// }
@@ -91,7 +134,6 @@ export default {
 				// 		return false
 				// 	}
 				// }
-  			this.$router.push('/'+type)
   			
   		}
   	}
@@ -150,48 +192,48 @@ export default {
 	}
 	.blue {
 		background-color: #fff;
-		.no-icon:first-of-type .icon{
-			background: url('/static/img/menuicon_01.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
-		.no-icon:last-of-type .icon {
-			background: url('/static/img/menuicon_04.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
-		.no-icon:nth-last-child(2) .icon {
-			background: url('/static/img/menuicon_05.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
+		// .no-icon:first-of-type .icon{
+		// 	background: url('/static/img/menuicon_01.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
+		// .no-icon:last-of-type .icon {
+		// 	background: url('/static/img/menuicon_04.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
+		// .no-icon:nth-last-child(2) .icon {
+		// 	background: url('/static/img/menuicon_05.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
 	}
 	.dark {
 		background-color: @dark_back;
-		.no-icon:first-of-type .icon {
-			background: url('/static/img/menuicon_01_dark.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
-		.no-icon:last-of-type .icon {
-			background: url('/static/img/menuicon_04_dark.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
-		.no-icon:nth-last-child(2) .icon {
-			background: url('/static/img/menuicon_05_dark.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
+		// .no-icon:first-of-type .icon {
+		// 	background: url('/static/img/menuicon_01_dark.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
+		// .no-icon:last-of-type .icon {
+		// 	background: url('/static/img/menuicon_04_dark.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
+		// .no-icon:nth-last-child(2) .icon {
+		// 	background: url('/static/img/menuicon_05_dark.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
 	}
 	.green {
 		background-color: #fff;
-		.no-icon:first-of-type  .icon{
-			background: url('/static/img/menuicon_01_green.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
-		.no-icon:last-of-type  .icon{
-			background: url('/static/img/menuicon_04_green.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
-		.no-icon:nth-last-child(2) .icon {
-			background: url('/static/img/menuicon_05_green.png')  center 10% no-repeat;
-			background-size: 30%;
-		}
+		// .no-icon:first-of-type  .icon{
+		// 	background: url('/static/img/menuicon_01_green.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
+		// .no-icon:last-of-type  .icon{
+		// 	background: url('/static/img/menuicon_04_green.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
+		// .no-icon:nth-last-child(2) .icon {
+		// 	background: url('/static/img/menuicon_05_green.png')  center 10% no-repeat;
+		// 	background-size: 30%;
+		// }
 	}
 }
 .length4 {

@@ -8,7 +8,7 @@
 		</section>
 		<section class="content" v-if="listData!=''">
 			<ul >
-				<li v-for="(item, index) in listData.content" :key="index">
+				<li v-for="(item, index) in listData.content" :key="index" @click="_gotoDetail(item.link)">
 					<type-a v-if="item.imglist.length===3" :content="item"></type-a>
 					<type-b v-else :content="item"></type-b>
 				</li>
@@ -62,14 +62,27 @@ export default {
   methods: {
   	init(){
       let that = this
-      // alert(that.uid)
+      if(!that.uid){
+        this.$router.push('/')
+      }
       axios.get(baseUrl+'/front/news?uid='+ that.uid)
         .then(res=> {
           console.log(res)
           that.listData = Object.assign({},jsonParse(res.data.data))
           that.isShowLoading = false;
         })
-  	}
+  	},
+    _gotoDetail (link) {
+      let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+      let result = reg.test(link)
+      if(!result) {
+        //非网站
+        this.$router.push('/detail/'+link)
+      }
+      else {
+        this.$router.push('/other/'+link)
+      }
+    },
   }
 }
 </script>

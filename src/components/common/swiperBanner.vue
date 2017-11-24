@@ -44,6 +44,7 @@ export default {
   },
   methods: {
   	_gotoDetail (link){
+  		console.log(1)
   		let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
       let result = reg.test(link)
       if(!result) {
