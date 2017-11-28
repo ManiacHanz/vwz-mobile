@@ -4,6 +4,7 @@ import {
 	SAVE_USERID,
 	SAVE_THEME,
 	SET_PANELLINK,
+	SET_SHOWFOOT,
 } from './mutation-types.js'
 
 export default {
@@ -26,5 +27,8 @@ export default {
 		else if(payload.name == 'user') {
 			state.userLink = payload.link
 		}
+	},
+	[SET_SHOWFOOT] (state, bool) {
+		state.showFoot = bool
 	}
 }

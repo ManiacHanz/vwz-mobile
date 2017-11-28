@@ -1,5 +1,5 @@
 <template>
-	<div class="foot" :class="[theme, 'length'+dataLength]">
+	<div class="foot" :class="[theme, 'length'+dataLength]" v-show="showFoot">
 		<ul :class="theme">
         <li
           v-for="(item, index) in dataList"
@@ -39,7 +39,7 @@ export default {
   // props: ['menuBtnList','theme'],
   computed: {
   	...mapState([
-  			'uid','theme'
+  			'uid','theme','showFoot'
   		])
   },
   created () {
@@ -54,19 +54,21 @@ export default {
   	theme: function(newVal) {
   		//通过监听默认主题给菜单配置默认的图标 因为初始化数据中可能没传这里
   		if(newVal==='blue'){
-  			this.defaultIcon = ['/static/img/menuicon_01.png','','','/static/img/menuicon_04.png','/static/img/menuicon_05.png']
-  			if(this.dataLength == 3 ) {
-	  			this.defaultIcon.splice(1,1)
-	  		}
+  			// this.defaultIcon = ['/static/img/menuicon_01.png','','','/static/img/menuicon_04.png','/static/img/menuicon_05.png']
+  			this.defaultIcon = ['/static/img/menuicon_01.png','/static/img/menuicon_04.png','/static/img/menuicon_05.png']
+  			
+  			// if(this.dataLength == 3 ) {
+	  		// 	this.defaultIcon.splice(1,1)
+	  		// }
   		}
   		else if(newVal==='dark'){
-				this.defaultIcon = ['/static/img/menuicon_01_dark.png','','','/static/img/menuicon_04_dark.png','/static/img/menuicon_05_dark.png']
+				this.defaultIcon = ['/static/img/menuicon_01_dark.png','/static/img/menuicon_04_dark.png','/static/img/menuicon_05_dark.png']
 				if(this.dataLength == 3 ) {
 	  			this.defaultIcon.splice(1,1)
 	  		}
   		}
   		else if(newVal==='green'){
-				this.defaultIcon = ['/static/img/menuicon_01_green.png','','','/static/img/menuicon_04_green.png','/static/img/menuicon_05_green.png']
+				this.defaultIcon = ['/static/img/menuicon_01_green.png','/static/img/menuicon_04_green.png','/static/img/menuicon_05_green.png']
 				if(this.dataLength == 3 ) {
 	  			this.defaultIcon.splice(1,1)
 	  		}
@@ -172,7 +174,7 @@ export default {
 		height: 100%;
 		margin: 0 1px;
 		position: relative;
-		opacity: 0.7;
+		opacity: 0.5;
 		&.active {
 			opacity: 1;
 		}

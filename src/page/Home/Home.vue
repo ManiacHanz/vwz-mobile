@@ -254,15 +254,19 @@ export default {
   }
   .plate {
     .temp_0 {
+      opacity: 0.7;
       background-color: @dark_plate0;
     }
     .temp_1 {
+      opacity: 0.7;
       background-color: @dark_plate1;
     }
     .temp_2 {
+      opacity: 0.7;
       background-color: @dark_plate2;
     }
     .temp_3 {
+      opacity: 0.7;
       background-color: @dark_plate3;
       .plate-describe {
         color: @dark_font;

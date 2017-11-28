@@ -14,6 +14,7 @@ const state = {
 	homeLink: false,				// 设置默认菜单是否是第三方配置
 	listLink: false,
 	userLink: false,
+	showFoot: true,				//是否显示底栏
 }
 
 

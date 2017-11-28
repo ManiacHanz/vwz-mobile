@@ -7,11 +7,13 @@
  * 
  */
 
-// let baseUrl = 'http://localhost:4000'; 
-// let baseUrl = 'http://10.0.0.3:4000'; 
-// let baseUrl = 'http://192.168.100.24:4000'; 
-let baseUrl = 'http://192.168.100.2:8089/lltrvl'
-const imageBaseUrl = 'http://192.168.100.2:8089/lltrvl'; 
+
+// let baseUrl = 'http://192.168.100.179:8080/lltrvl'
+// const imageBaseUrl = 'http://192.168.100.179:8080/lltrvl'; 
+
+let baseUrl = 'http://120.26.59.145:8080/micweb'; 
+
+const imageBaseUrl = 'http://120.26.59.145:8080/micweb'; 
 
 
 let routerMode = 'history';

@@ -127,6 +127,7 @@ export default {
 			background: url('/static/img/arrow_dark.png') no-repeat;
 			background-position: 95% center;
 			background-size: 0.18rem;
+      border-color: @dark_border;
 		}
 		li span{
 			color: @dark_lightFont;
