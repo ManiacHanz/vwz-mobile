@@ -24,7 +24,7 @@ export default new Router({
       component: Home,
       beforeEnter: (to, from, next) => {
         // alert('beforeHomeRouter....')
-        setStore('uid','USERjIMHXdT1')
+        // setStore('uid','USERjIMHXdT1')
         // setStore('theme', 'dark')
         store.commit('SAVE_USERID', getStore('uid'))
         // store.commit('SAVE_THEME', getStore('theme'))

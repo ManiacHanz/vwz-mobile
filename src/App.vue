@@ -52,6 +52,7 @@ export default {
           console.log(res)
           this.homePageList = jsonParse(res.data.data)
           this.SAVE_THEME(res.data.data.themes)
+          document.title = res.data.message     //token和message放反了
           // window.location.href='http://192.168.100.24:12345/#/home'
         })
     })
@@ -65,7 +66,9 @@ export default {
       // alert('init')
       alertOrientation()
       const that = this
-      document.title = getStore('name')
+      // let webName = window.decodeURI(getStore('name'))
+      // alert(webName)
+      // document.title = webName
       // this.SAVE_USERID(getStore('uid'))
       // this.SAVE_THEME(getStore('theme'))
     }

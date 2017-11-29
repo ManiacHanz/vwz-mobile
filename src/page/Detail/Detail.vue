@@ -12,7 +12,7 @@
       <div class="detail" v-html="artDetail.content"></div>
       <div class="copy-right">{{artDetail.copyright}}</div>
     </div>
-    <div v-if="!artDetail">
+    <div v-if="!artDetail" style="padding: 1rem 0 0 1rem;font-size: 0.30rem;">
       文章详情请求失败或网址配置不正确，请检查配置哟~
     </div>
 	</div>
