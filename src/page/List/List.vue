@@ -80,7 +80,9 @@ export default {
         this.$router.push('/detail/'+link)
       }
       else {
-        this.$router.push('/other/'+link)
+        let newlink = link.replace('http://', '')
+        
+        this.$router.push('/other/'+newlink)
       }
     },
   }
@@ -100,7 +102,7 @@ export default {
 	height: 28vh;
 }
 .content {
-  li {
+  li:not(:last-of-type) {
     border-bottom: 1px solid #dedede;
   }
 }

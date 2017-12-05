@@ -145,7 +145,7 @@ export default {
 .introduce {
   box-sizing: border-box;
   height: 18vh;
-  border-top: 1px solid #dddddd;
+  // border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
   padding: 2vw 4vw;
   cursor: pointer;
@@ -167,7 +167,7 @@ export default {
     text-align: right;
     position: absolute;
     bottom: 8px;
-    right: 12px;
+    right: 4vw;
   }
 }
 .plate {

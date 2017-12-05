@@ -86,7 +86,7 @@ export default {
   background-position: 0.2rem 2vh;
 }
 .content {
-  height: 92vh;
+  min-height: 92vh;
   padding: 0 0.3rem 0.5rem;
   line-height: 200%;
 
@@ -98,6 +98,7 @@ export default {
     overflow-y: hidden;
     line-height: 150%;
     margin-bottom: 0.18rem;
+    word-break: break-all;
   }
   .info {
     font-size: 0.20rem;
@@ -114,6 +115,7 @@ export default {
     color: #999;
     text-align: center;
     margin: 1rem 0 0.3rem;
+    word-break: break-all;
   }
 }
 /*

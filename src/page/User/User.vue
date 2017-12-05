@@ -75,7 +75,9 @@ export default {
         this.$router.push('/detail/'+link)
       }
       else {
-        this.$router.push('/other/'+link)
+        let newlink = link.replace('http://', '')
+        
+        this.$router.push('/other/'+newlink)
       }
     },
   }
