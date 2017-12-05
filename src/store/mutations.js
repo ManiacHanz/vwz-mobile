@@ -30,5 +30,9 @@ export default {
 	},
 	[SET_SHOWFOOT] (state, bool) {
 		state.showFoot = bool
-	}
+	},
+	// 设置other里iframe的url
+	[SET_IFRAMEURL] (state, str) {
+		state.iframeUrl = str
+	},
 }

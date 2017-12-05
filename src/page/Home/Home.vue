@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-        'SET_PANELLINK'
+        'SET_PANELLINK','SET_IFRAMEURL'
       ]),
   	init(){
   		let that = this
@@ -116,16 +116,15 @@ export default {
         })
   	},
     _gotoDetail (link) {
-      let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+      let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+/
       let result = reg.test(link)
       if(!result) {
         //非网站
         this.$router.push('/detail/'+link)
       }
       else {
-        let newlink = link.replace('http://', '')
-
-        this.$router.push('/other/'+newlink)
+        this.SET_IFRAMEURL(link)
+        this.$router.push('/other')
       }
     },
     

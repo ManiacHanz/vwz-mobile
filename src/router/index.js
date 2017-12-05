@@ -40,7 +40,7 @@ export default new Router({
       component: User
     },
     {
-      path: '/other/:id',
+      path: '/other',
       component: Other
     },
     {

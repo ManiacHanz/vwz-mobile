@@ -73,6 +73,7 @@ export default {
 	background-color: #fff;
 	z-index: 1;
 	overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .top-bar {
   font-size: 0.26rem;

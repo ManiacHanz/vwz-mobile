@@ -19,24 +19,13 @@ export default {
   },
   computed: {
     ...mapState([
-        'uid'
+        'uid','iframeUrl'
       ])
   },
   mounted(){
   	if(!this.uid){
       this.$router.push('/')
     }
-  },
-  watch: {
-  	'$route': function(to, from) {
-  		// console.log(to.params.id)
-      this.url = 'http://' + to.params.id
-  	}
-  },
-  beforeRouteEnter (to,from, next) {
-    next(vm=>{
-  	 vm.url = 'http://'+vm.$route.params.id
-    })
   },
 }
 </script>

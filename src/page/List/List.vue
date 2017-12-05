@@ -8,7 +8,7 @@
 		</section>
 		<section class="content" v-if="listData!=''">
 			<ul >
-				<li v-for="(item, index) in listData.content" :key="index" @click="_gotoDetail(item.link)">
+				<li v-for="(item, index) in listData.content" :key="index" @click="_gotoDetail(item.link)"  v-if="item.title && item.imglist">
 					<type-a v-if="item.imglist.length===3" :content="item"></type-a>
 					<type-b v-else :content="item"></type-b>
 				</li>
@@ -60,6 +60,9 @@ export default {
     this.init()
   },
   methods: {
+    ...mapMutations([
+        'SET_IFRAMEURL'
+      ]),
   	init(){
       let that = this
       if(!that.uid){
@@ -73,16 +76,15 @@ export default {
         })
   	},
     _gotoDetail (link) {
-      let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+      let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+/
       let result = reg.test(link)
       if(!result) {
         //非网站
         this.$router.push('/detail/'+link)
       }
       else {
-        let newlink = link.replace('http://', '')
-        
-        this.$router.push('/other/'+newlink)
+        this.SET_IFRAMEURL(link)
+        this.$router.push('/other')
       }
     },
   }

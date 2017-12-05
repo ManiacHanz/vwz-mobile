@@ -2,7 +2,7 @@
 	<div class="banner">
 		<section class="swiper-container" :id="id" v-if="bannerList">
       <ul class="swiper-wrapper">
-          <li class="swiper-slide" v-for="(item, index) in bannerList" :key="index" @click="_gotoDetail(item.link)">
+          <li class="swiper-slide" v-for="(item, index) in bannerList" :key="index" @click="_gotoDetail(item.link)" v-if="item.title">
         		<img :src="imgBaseUrl+item.img">
         		<p>
         			<span>{{ item.title }}</span>
@@ -44,16 +44,16 @@ export default {
   },
   methods: {
   	_gotoDetail (link){
-  		console.log(1)
-  		let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
+  		// console.log(1)
+  		let reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+/
       let result = reg.test(link)
       if(!result) {
         //非网站
         this.$router.push('/detail/'+link)
       }
       else {
-      	let newlink = link.replace('http://', '')
-        this.$router.push('/other/'+ newlink)
+      	this.SET_IFRAMEURL(link)
+        this.$router.push('/other')
       }
   	}
   }

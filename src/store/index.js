@@ -15,6 +15,7 @@ const state = {
 	listLink: false,
 	userLink: false,
 	showFoot: true,				//是否显示底栏
+	iframeUrl: '',
 }
 
 
