@@ -5,6 +5,7 @@ import {
 	SAVE_THEME,
 	SET_PANELLINK,
 	SET_SHOWFOOT,
+	SET_IFRAMEURL,
 } from './mutation-types.js'
 
 export default {

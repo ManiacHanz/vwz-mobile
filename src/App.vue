@@ -2,8 +2,11 @@
   <div id="app">
     <transition name="router-fade" mode="out-in">
       <keep-alive>
-        <router-view/></router-view>
+        <router-view v-if="!$route.meta.noKeepAlive"/></router-view>
       </keep-alive>
+    </transition>
+    <transition name="router-fade" mode="out-in">
+        <router-view v-if=" $route.meta.noKeepAlive"/></router-view>
     </transition>
     <section class="foot">
       <!-- {{homePageList.button}} -->

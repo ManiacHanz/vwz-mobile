@@ -12,7 +12,7 @@
       <div class="detail" v-html="artDetail.content"></div>
       <div class="copy-right">{{artDetail.copyright}}</div>
     </div>
-    <div v-if="!artDetail" style="padding: 1rem 0 0 1rem;font-size: 0.30rem;">
+    <div v-if="!artDetail" style="padding: 1rem 10vw ;font-size: 0.30rem;">
       文章详情请求失败或网址配置不正确，请检查配置哟~
     </div>
 	</div>
@@ -72,8 +72,6 @@ export default {
 	position: relative;
 	background-color: #fff;
 	z-index: 1;
-	overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
 .top-bar {
   font-size: 0.26rem;
@@ -85,12 +83,17 @@ export default {
   background: url('/static/img/left_arrow.png') no-repeat;
   background-size: 4vh;
   background-position: 0.2rem 2vh;
+  position: fixed;
+  width: 100%;
+  z-index:1;
+  background-color:#fff;
 }
 .content {
   min-height: 92vh;
-  padding: 0 0.3rem 0.5rem;
+  padding: 8vh 0.3rem 0.5rem;
   line-height: 200%;
-
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   .title {
     color: #111;
     font-size: 0.4rem;

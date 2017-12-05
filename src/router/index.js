@@ -24,7 +24,7 @@ export default new Router({
       component: Home,
       beforeEnter: (to, from, next) => {
         // alert('beforeHomeRouter....')
-        // setStore('uid','USERjIMHXdT1')
+        // setStore('uid','USERDGcfrI6i')
         // setStore('theme', 'dark')
         store.commit('SAVE_USERID', getStore('uid'))
         // store.commit('SAVE_THEME', getStore('theme'))
@@ -45,7 +45,8 @@ export default new Router({
     },
     {
       path: '/detail/:id',
-      component: Detail
+      component: Detail,
+      meta: {noKeepAlive:true}
     },
     {
       path: '/notFound',
