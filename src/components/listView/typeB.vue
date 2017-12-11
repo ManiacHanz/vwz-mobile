@@ -40,11 +40,11 @@ img {
 	margin-right: 3vw;
 }
 .right {
-	flex-grow: 1;
+	// flex-grow: 1;
 	height: 56px;
 	.title {
-		font-size: 0.24rem;
-		height: 0.7rem;
+		font-size: 0.26rem;
+		height: 0.72rem;
 		overflow-y: hidden;
 		margin-bottom: 2px;
 	}

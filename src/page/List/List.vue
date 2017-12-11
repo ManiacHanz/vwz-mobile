@@ -95,6 +95,7 @@ export default {
 @import "../../style/common.less";
 .box {
 	overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .loading {
   width:100%;

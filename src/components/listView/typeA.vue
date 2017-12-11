@@ -31,9 +31,9 @@ export default {
 	padding: 0 3vw;
 }
 .title {
-	font-size: 0.24rem;
-	height: 0.5rem;
-	line-height: 0.5rem;
+	font-size: 0.26rem;
+	height: 0.55rem;
+	line-height: 0.55rem;
 	.ellipsis()
 }
 .imglist {

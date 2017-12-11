@@ -1,6 +1,6 @@
 <template>
 	<div class="box">
-		<iframe :src="url" frameborder="0" id="iframe">
+		<iframe :src="iframeUrl" frameborder="0" id="iframe">
 			
 		</iframe>
 	</div>

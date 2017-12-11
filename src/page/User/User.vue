@@ -91,6 +91,7 @@ export default {
 
 .box {
 	overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .loading {
   width:100%;
