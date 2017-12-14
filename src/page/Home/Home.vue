@@ -95,6 +95,11 @@ export default {
       ]),
   	init(){
   		let that = this
+      if(!that.uid){
+        // this.$route.hash = ''
+        // console.log(this.$route.hash)
+        this.$router.push('/')
+      }
       // alert(that.uid)
       axios.get(baseUrl+'/front/menu?uid='+ that.uid)
         .then(res=> {

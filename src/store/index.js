@@ -16,6 +16,7 @@ const state = {
 	userLink: false,
 	showFoot: true,				//是否显示底栏
 	iframeUrl: '',
+	footActive: 0,				// 面板活动的位数
 }
 
 

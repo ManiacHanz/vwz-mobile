@@ -8,7 +8,13 @@ import Detail from 'page/Detail/Detail'
 import NotFound from 'page/NotFound/NotFound'
 
 import store from 'src/store'
-import {setStore,getStore} from 'src/utils/mUtils.js'
+import {setStore,getStore,jsonParse} from 'src/utils/mUtils.js'
+
+import axios from 'axios'
+import {baseUrl} from 'src/utils/env'
+
+
+var firstIn = ''
 
 
 Vue.use(Router)
@@ -17,7 +23,21 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      beforeEnter: (to,from,next) => {
+        store.commit('SAVE_USERID', getStore('uid'))
+        axios.get(baseUrl+'/front/menu?uid='+ getStore('uid'))
+          .then( res => {
+            let button = jsonParse(res.data.data).button
+            for (let i in button) {
+              if (button[i].display) {
+                firstIn = '/' + button[i].type
+                store.commit('SET_FOOTACTIVE', i*1)
+                break
+              }
+            }
+            next(firstIn)
+          })
+      },
     },
     {
       path: '/home',
@@ -26,7 +46,7 @@ export default new Router({
         // alert('beforeHomeRouter....')
         // setStore('uid','USERDGcfrI6i')
         // setStore('theme', 'dark')
-        store.commit('SAVE_USERID', getStore('uid'))
+        // store.commit('SAVE_USERID', getStore('uid'))
         // store.commit('SAVE_THEME', getStore('theme'))
         next()
       }

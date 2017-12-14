@@ -118,7 +118,7 @@ export default {
   .copy-right {
     color: #999;
     text-align: center;
-    margin: 1rem 0 0.3rem;
+    margin: 0.6rem 0 0.2rem;
     word-break: break-all;
   }
 }

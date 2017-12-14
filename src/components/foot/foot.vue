@@ -3,8 +3,8 @@
 		<ul :class="theme">
         <li
           v-for="(item, index) in dataList"
-        	v-if=" item.title && (item.link || item.type)"
-          :class="[mobileActive===index?'active':'', item.icon==''? 'no-icon': '']"  
+        	v-if=" item.title && (item.link || item.type) && item.display"
+          :class="[footActive===index?'active':'', item.icon==''? 'no-icon': '']"  
           @click="_switchPanel(item.type, index, item.link)">
             <div class="icon">
               <img :src="item.icon ? imgBaseUrl+item.icon : defaultIcon[index]"></img>
@@ -29,7 +29,7 @@ export default {
 
   data () {
     return {
-    	mobileActive:0,
+    	// mobileActive:0,
     	imgBaseUrl: imageBaseUrl,
     	dataList: '',
     	dataLength: '',
@@ -39,8 +39,8 @@ export default {
   // props: ['menuBtnList','theme'],
   computed: {
   	...mapState([
-  			'uid','theme','showFoot'
-  		])
+  			'uid','theme','showFoot','footActive'
+  		]),
   },
   created () {
 
@@ -86,31 +86,36 @@ export default {
   	// console.log('uid:', this.uid)
   	// this.menuBtn = this.menuBtnList
   	axios.get(baseUrl+'/front/menu?uid='+ that.uid)
-        .then(res=> {
-          let jpRes = jsonParse(res.data.data)
-          this.dataList = jpRes.button
-          if(this.dataList.length == 4) {
-          	this.dataLength = 3
-          }
-          else{
-          	this.dataLength = 5
-          	for (let i in this.dataList) {
-          		if(this.dataList[i].type == '' && this.dataList[i].title == '' && this.dataList[i].link == ''){
-          			this.dataLength = 4
-          			break
-          		}
-          	}
-          }
-          // window.location.href='http://192.168.100.24:12345/#/home'
-        })
+      .then(res=> {
+        let jpRes = jsonParse(res.data.data)
+        this.dataList = jpRes.button
+        // for (let i in this.dataList) {
+        // 	if(this.dataList[i].display) {
+        // 		this.mobileActive = i -1
+        // 	}
+        // }
+        if(this.dataList.length == 4) {
+        	this.dataLength = 3
+        }
+        else{
+        	this.dataLength = 5
+        	for (let i in this.dataList) {
+        		if(this.dataList[i].type == '' && this.dataList[i].title == '' && this.dataList[i].link == ''){
+        			this.dataLength = 4
+        			break
+        		}
+        	}
+        }
+        // window.location.href='http://192.168.100.24:12345/#/home'
+      })
   },
   methods: {
   	...mapMutations([
-  			'SAVE_USERID'
+  			'SAVE_USERID','SET_FOOTACTIVE'
   		]),
   	_switchPanel (type, index, link) {
   		// console.log(type,index,link)    //link  是配的网址 type是原来的板块
-  		this.mobileActive = index
+  		this.SET_FOOTACTIVE(index)
   		if(!type) {						// 这里是自定义的两个板块  直接连到网页
   			// this.$router.push({path: '/other', params: {'url': link}})
   			let newlink = link.replace('http://', '')

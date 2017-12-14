@@ -6,6 +6,7 @@ import {
 	SET_PANELLINK,
 	SET_SHOWFOOT,
 	SET_IFRAMEURL,
+	SET_FOOTACTIVE,
 } from './mutation-types.js'
 
 export default {
@@ -36,4 +37,8 @@ export default {
 	[SET_IFRAMEURL] (state, str) {
 		state.iframeUrl = str
 	},
+	// 设置底部面板活动的index
+	[SET_FOOTACTIVE] (state, num) {
+		state.footActive = num
+	}
 }

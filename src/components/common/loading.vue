@@ -30,7 +30,7 @@ export default {
 .box {
 	width: 100%;
 	height: 100%;
-	background: #dedede;
+	background: #fff;
 	padding-top: 35vh;
 }
 .load6 {
